@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  api:
+    build:
+      context: .
+    depends_on:
+      - redis
+    restart: always
+  redis:
+    image: redis:4.0.9-alpine
+    restart: always
+  nginx:
+    image: nginx:1.12.2
+    ports:
+      - 5000:5000
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./certificates/localhost.crt:/etc/ssl/certs/localhost.crt:ro
+      - ./certificates/localhost.key:/etc/ssl/private/locahost.key:ro
+    restart: always
+    depends_on:
+      - api
+      

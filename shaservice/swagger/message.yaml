@@ -1,0 +1,59 @@
+swagger: '2.0'
+info:
+  title: SHA-Service
+  version: "0.1"
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /messages:
+    post:
+      parameters:
+        - name: message
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Message'
+      responses:
+        '201':
+          description: Register new message and return it's SHA-256 Digest
+          schema:
+            $ref: '#/definitions/Digest'
+  /messages/{digest}:
+    get:
+      summary: Return message given SHA-256 Digest
+      parameters:
+        - $ref: '#/parameters/digest'
+      responses:
+        200:
+          description: Return message
+          schema:
+            $ref: '#/definitions/Message'
+        404:
+          description: Digest does not exist
+
+parameters:
+  digest:
+    name: digest
+    description: Message's SHA-256 Digest
+    in: path
+    type: string
+    required: true
+    pattern: "[A-Fa-f0-9]{64}"
+
+definitions:
+  Message:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  Digest:
+    type: object
+    required:
+      - digest
+    properties:
+      digest:
+        type: string
