@@ -14,6 +14,7 @@ Connextion is buit on top of Flask, a well known Python web framework.
 We are using gevent webserver along with PyPy to host a non blocking endpoint for concurrent requests.
 
 ## Redis
+
 Reversing a SHA256 is nearly impossible.  We need some place to shore the hashes in order to do a reverse lookup.  You can use any store you'd like, such as Postgres, MongoDB, Dynamo, etc.  As this use case is simply a key/value store, a high performance in-memory and sclable store is desired, which Redis is.
 
 ## Nginx
