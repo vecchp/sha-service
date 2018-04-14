@@ -14,7 +14,6 @@ Connextion is buit on top of Flask, a well known Python web framework.
 We are using gevent webserver along with PyPy to host a non blocking endpoint for concurrent requests.
 
 ## Redis
-
 Reversing a SHA256 is nearly impossible.  We need some place to shore the hashes in order to do a reverse lookup.  You can use any store you'd like, such as Postgres, MongoDB, Dynamo, etc.  As this use case is simply a key/value store, a high performance in-memory and sclable store is desired, which Redis is.
 
 ## Nginx
@@ -28,6 +27,6 @@ A better process is to send logs to stdout/stderr and then use a logging agent t
 # Scaling
 The current architecture is a fairly decent starting point for a scalable service.  Some areas that can be considered:
 
-Typically a docker-compose file with volume mounts requires the entire service to be hosted on a single logical machine.  If this were being deployed, all three services would be hosted in a distributed nature with multiple replicas.  Instead of hosting the NGINX container with the service the API would use ervice discovery to register each container with a load balancer such as NGINX or an ALB (using ECS and target groups).
+Typically a docker-compose file with volume mounts requires the entire service to be hosted on a single logical machine.  If this were being deployed, all three services would be hosted in a distributed nature with multiple replicas.  Instead of hosting the NGINX container with the service the API would use service discovery to register each container with a load balancer such as NGINX or an ALB (using ECS and target groups).
 
 If we know that there are certain use cases where some queries will occur more often than others, we can have an Last Recently Used (LRU) cache on each API instance, instead of always going out to Redis to request the SHA256 digest.
