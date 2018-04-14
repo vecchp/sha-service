@@ -29,4 +29,4 @@ The current architecture is a fairly decent starting point for a scalable servic
 
 Typically a docker-compose file with volume mounts requires the entire service to be hosted on a single logical machine.  If this were being deployed, all three services would be hosted in a distributed nature with multiple replicas.  Instead of hosting the NGINX container with the service the API would use service discovery to register each container with a load balancer such as NGINX or an ALB (using ECS and target groups).
 
-If we know that there are certain use cases where some queries will occur more often than others, we can have an Last Recently Used (LRU) cache on each API instance, instead of always going out to Redis to request the SHA256 digest.
+If we know some queries will occur more often than others, we can have an Last Recently Used (LRU) cache on each API instance, instead of always going out to Redis to request the SHA256 digest.
